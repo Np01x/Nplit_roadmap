@@ -1,0 +1,370 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0b0e14">
+<title>NPLIT | مسیر رشد مهندسی کامپیوتر</title>
+<style>
+:root {
+  --site-primary: #8b5cf6;
+  --site-secondary: #111827;
+  --site-background: #0b0e14;
+  --site-on-primary: #ffffff;
+  --site-on-secondary: #f3f4f6;
+  --site-on-background: #f3f4f6;
+  --site-font-body: Tahoma, "Segoe UI", sans-serif;
+  --site-font-heading: Tahoma, "Segoe UI", sans-serif;
+  --site-heading-scale: 1;
+  --site-spacing-scale: 1;
+  --site-radius-scale: 1;
+  --site-decoration-opacity: 1;
+  --bg: #0b0e14;
+  --surface: #111620;
+  --surface-2: #171e2b;
+  --surface-3: #202a3a;
+  --text: #eef2ff;
+  --muted: #9ba8bc;
+  --border: rgba(164, 177, 202, .15);
+  --purple: #9b7bff;
+  --cyan: #55e6d0;
+  --amber: #ffc56e;
+  --green: #68e6a4;
+  --red: #ff7b8a;
+  --radius: calc(18px * var(--site-radius-scale));
+  --space: calc(16px * var(--site-spacing-scale));
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  font-family: var(--site-font-body);
+  background: var(--site-background);
+  color: var(--text);
+  line-height: 1.85;
+}
+#app {
+  min-height: 100vh;
+  width: 100%;
+  border-radius: 0;
+  overflow: hidden;
+  background: var(--site-background);
+  color: var(--site-on-background);
+  position: relative;
+}
+a { color: inherit; text-decoration: none; }
+button, input { font: inherit; }
+button { cursor: pointer; }
+.wrap { width: min(1160px, calc(100% - 36px)); margin: 0 auto; }
+.topbar {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 18px 0; border-bottom: 1px solid var(--border); gap: 16px;
+}
+.brand { display: flex; align-items: center; gap: 12px; font-weight: 900; letter-spacing: .4px; }
+.brand-mark {
+  width: 42px; height: 42px; display: grid; place-items: center;
+  border-radius: 13px; color: white; font-weight: 900; font-size: 20px;
+  background: linear-gradient(135deg, var(--purple), #5a39b8);
+  box-shadow: 0 8px 28px rgba(139,92,246,.28);
+}
+.brand small { display: block; font-weight: 500; color: var(--muted); font-size: 11px; letter-spacing: 0; }
+.nav { display: flex; gap: 8px; flex-wrap: wrap; }
+.nav a { color: var(--muted); padding: 7px 12px; border-radius: 10px; font-size: 13px; }
+.nav a:hover { color: var(--text); background: var(--surface-2); }
+.hero {
+  padding: 54px 0 34px; position: relative;
+  background: radial-gradient(ellipse at 85% 5%, rgba(139,92,246,.19), transparent 38%),
+              radial-gradient(ellipse at 8% 40%, rgba(85,230,208,.09), transparent 30%);
+}
+.eyebrow {
+  display: inline-flex; align-items: center; gap: 8px; border: 1px solid rgba(155,123,255,.35);
+  background: rgba(155,123,255,.09); color: #c8b8ff; border-radius: 999px;
+  padding: 5px 12px; font-size: 12px; font-weight: 700;
+}
+.hero-grid { display: grid; grid-template-columns: 1.3fr .7fr; align-items: center; gap: 32px; }
+h1 { font-family: var(--site-font-heading); font-size: clamp(30px, 4.8vw, 54px); line-height: 1.4; margin: 18px 0 10px; letter-spacing: -.8px; }
+.gradient { background: linear-gradient(90deg, #bba7ff, #55e6d0); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.lead { color: var(--muted); max-width: 680px; margin: 0 0 24px; }
+.actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn {
+  border: 1px solid var(--border); background: var(--surface-2); color: var(--text);
+  padding: 10px 16px; border-radius: 12px; display: inline-flex; align-items: center; gap: 8px;
+  font-weight: 700; font-size: 13px; transition: transform .2s, border-color .2s;
+}
+.btn:hover { transform: translateY(-2px); border-color: rgba(155,123,255,.65); }
+.btn.primary { background: var(--site-primary); color: var(--site-on-primary); border-color: transparent; }
+.hero-card {
+  background: linear-gradient(150deg, rgba(155,123,255,.15), rgba(85,230,208,.04)), var(--surface);
+  border: 1px solid var(--border); border-radius: 24px; padding: 24px; position: relative; overflow: hidden;
+}
+.hero-card:before {
+  content: ""; position: absolute; width: 180px; height: 180px; border-radius: 50%;
+  background: rgba(139,92,246,.13); filter: blur(40px); left: -60px; top: -65px;
+  opacity: var(--site-decoration-opacity); pointer-events: none;
+}
+.hero-card > * { position: relative; }
+.card-label { color: var(--muted); font-size: 12px; }
+.big-number { font-size: 42px; font-weight: 900; line-height: 1.4; margin: 6px 0; }
+.progress { height: 8px; background: var(--surface-3); border-radius: 99px; overflow: hidden; }
+.progress > span { display: block; height: 100%; width: 0; background: linear-gradient(90deg, var(--purple), var(--cyan)); border-radius: inherit; transition: width .3s; }
+.mini-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 9px; margin-top: 18px; }
+.mini-stat { background: rgba(11,14,20,.5); border: 1px solid var(--border); border-radius: 13px; padding: 10px; }
+.mini-stat strong { display: block; font-size: 18px; }
+.mini-stat span { display: block; color: var(--muted); font-size: 10px; }
+.section { padding: 34px 0; }
+.section-head { display: flex; justify-content: space-between; align-items: end; gap: 18px; margin-bottom: 18px; }
+.section-head h2 { margin: 0; font-size: calc(23px * var(--site-heading-scale)); }
+.section-head p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+.kicker { color: var(--cyan); font-size: 11px; font-weight: 800; letter-spacing: .8px; }
+.grid-3 { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+.panel {
+  background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 19px;
+}
+.panel h3 { margin: 0 0 5px; font-size: 16px; }
+.panel p { color: var(--muted); font-size: 12px; margin: 0; }
+.iconbox { width: 42px; height: 42px; display: grid; place-items: center; border-radius: 13px; margin-bottom: 12px; font-size: 21px; background: rgba(155,123,255,.13); }
+.iconbox.cyan { background: rgba(85,230,208,.1); }
+.iconbox.amber { background: rgba(255,197,110,.1); }
+.tag { display: inline-block; border: 1px solid var(--border); color: var(--muted); padding: 3px 8px; border-radius: 99px; font-size: 10px; margin-top: 12px; }
+.roadmap { display: grid; grid-template-columns: repeat(3,1fr); gap: 12px; }
+.phase { position: relative; }
+.phase .num { color: var(--purple); font-size: 12px; font-weight: 900; }
+.phase h3 { margin: 4px 0 8px; }
+.phase ul { margin: 0; padding-right: 18px; color: var(--muted); font-size: 12px; }
+.phase li { margin: 4px 0; }
+.week-grid { display: grid; grid-template-columns: repeat(4,1fr); gap: 10px; }
+.day {
+  background: var(--surface); border: 1px solid var(--border); border-radius: 14px; padding: 13px;
+}
+.day strong { display: block; color: var(--cyan); font-size: 12px; }
+.day span { display: block; font-size: 12px; margin-top: 4px; }
+.day small { display: block; color: var(--muted); font-size: 10px; margin-top: 6px; }
+.project-list { display: grid; grid-template-columns: repeat(2,1fr); gap: 13px; }
+.project { display: flex; gap: 14px; align-items: start; }
+.project-icon { flex: 0 0 44px; width: 44px; height: 44px; display: grid; place-items: center; background: var(--surface-3); border-radius: 14px; font-size: 20px; }
+.project h3 { font-size: 14px; margin: 0 0 4px; }
+.project p { font-size: 12px; color: var(--muted); margin: 0; }
+.project .meta { color: var(--amber); font-size: 10px; margin-top: 8px; }
+.tools { display: grid; grid-template-columns: repeat(2,1fr); gap: 10px; }
+.tool { display: flex; gap: 12px; padding: 14px; border: 1px solid var(--border); border-radius: 14px; background: var(--surface); }
+.tool .tool-emoji { font-size: 22px; }
+.tool strong { display: block; font-size: 13px; }
+.tool p { color: var(--muted); margin: 3px 0 0; font-size: 11px; }
+.tool a { color: var(--cyan); font-size: 11px; display: inline-block; margin-top: 5px; }
+.checklist { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.check {
+  display: flex; gap: 10px; align-items: start; padding: 12px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 13px;
+}
+.check input { accent-color: var(--purple); width: 18px; height: 18px; margin-top: 5px; flex: 0 0 auto; }
+.check span { font-size: 12px; }
+.check.done span { color: var(--muted); text-decoration: line-through; }
+.callout { border: 1px solid rgba(85,230,208,.24); background: rgba(85,230,208,.06); border-radius: var(--radius); padding: 18px; }
+.callout strong { color: var(--cyan); }
+.footer { border-top: 1px solid var(--border); color: var(--muted); padding: 24px 0 34px; font-size: 11px; text-align: center; }
+.floating { position: fixed; left: 18px; bottom: 18px; z-index: 10; box-shadow: 0 10px 30px rgba(0,0,0,.3); }
+@media (max-width: 820px) {
+  .hero-grid { grid-template-columns: 1fr; }
+  .grid-3, .roadmap { grid-template-columns: repeat(2,1fr); }
+  .week-grid { grid-template-columns: repeat(2,1fr); }
+  .nav { display: none; }
+}
+@media (max-width: 540px) {
+  .wrap { width: min(100% - 24px, 1160px); }
+  .hero { padding-top: 35px; }
+  .grid-3, .roadmap, .project-list, .tools, .checklist { grid-template-columns: 1fr; }
+  .section-head { align-items: start; flex-direction: column; }
+  .mini-stats { grid-template-columns: repeat(3,1fr); }
+  .panel { padding: 16px; }
+}
+</style>
+</head>
+<body>
+<div id="app">
+  <header class="wrap topbar">
+    <a class="brand" href="#home" aria-label="ابتدای صفحه">
+      <span class="brand-mark">N</span>
+      <span>NPLIT <small>COMPUTER ENGINEERING ROADMAP</small></span>
+    </a>
+    <nav class="nav" aria-label="ناوبری اصلی">
+      <a href="#roadmap">مسیر یادگیری</a>
+      <a href="#weekly">برنامه هفتگی</a>
+      <a href="#projects">پروژه‌ها</a>
+      <a href="#tools">ابزارها</a>
+      <a href="#progress">پیشرفت من</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero" id="home">
+      <div class="wrap hero-grid">
+        <div>
+          <span class="eyebrow">✦ مسیر شخصی‌سازی‌شده · نسخه 01</span>
+          <h1>از صفر شروع کن.<br><span class="gradient">مهندسِ سازنده شو.</span></h1>
+          <p class="lead">داشبورد رشد مهندسی کامپیوتر؛ ترکیبی از درس دانشگاه، برنامه‌نویسی، امنیت سایبری، هوش مصنوعی، پروژه‌های واقعی و آمادگی ورود به بازار کار — با روزی ۹۰ دقیقه تمرکز هدفمند.</p>
+          <div class="actions">
+            <a class="btn primary" href="#roadmap">شروع مسیر <span>←</span></a>
+            <a class="btn" href="#progress">ثبت پیشرفت امروز</a>
+          </div>
+        </div>
+        <aside class="hero-card">
+          <span class="card-label">پیشرفت برنامه تو</span>
+          <div class="big-number"><span id="heroPercent">0</span><span style="font-size:20px">٪</span></div>
+          <div class="progress"><span id="heroBar"></span></div>
+          <p class="card-label" style="margin-top:10px">چک‌لیست هفتگی را کامل کن تا پیشرفتت به‌روز شود.</p>
+          <div class="mini-stats">
+            <div class="mini-stat"><strong>۹۰</strong><span>دقیقه در روز</span></div>
+            <div class="mini-stat"><strong>۱۲</strong><span>هفته پایه‌سازی</span></div>
+            <div class="mini-stat"><strong>۴</strong><span>پروژه عملی</span></div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="section-head">
+        <div><div class="kicker">YOUR DAILY SYSTEM</div><h2>سیستم روزانه تو</h2><p>برنامه فشرده، اما قابل‌دوام؛ متناسب با لپ‌تاپ معمولی.</p></div>
+      </div>
+      <div class="grid-3">
+        <article class="panel">
+          <div class="iconbox">🎓</div><h3>۳۰ دقیقه · دانشگاه</h3><p>مرور جزوه، حل سؤال، تمرین درس‌های جاری و آماده‌شدن برای امتحان.</p><span class="tag">پایه تحصیلی</span>
+        </article>
+        <article class="panel">
+          <div class="iconbox cyan">⌨️</div><h3>۴۰ دقیقه · کدنویسی</h3><p>یادگیری پایتون، حل مسئله و اضافه‌کردن قابلیت واقعی به پروژه.</p><span class="tag">مهارت اصلی</span>
+        </article>
+        <article class="panel">
+          <div class="iconbox amber">⚡</div><h3>۲۰ دقیقه · مهارت مکمل</h3><p>چرخشی: انگلیسی فنی، GitHub، وب، امنیت یا یادگیری ماشین.</p><span class="tag">رشد بلندمدت</span>
+        </article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="roadmap">
+      <div class="section-head">
+        <div><div class="kicker">ROADMAP</div><h2>مسیر یادگیری ۱۲ هفته‌ای</h2><p>اول پایه‌های مشترک، بعد شاخه‌های تخصصی.</p></div>
+      </div>
+      <div class="roadmap">
+        <article class="panel phase"><span class="num">PHASE 01 · هفته ۱–۲</span><h3>پایتون از صفر</h3><ul><li>متغیر و انواع داده</li><li>شرط، حلقه و تابع</li><li>۳ برنامه کوچک</li></ul></article>
+        <article class="panel phase"><span class="num">PHASE 02 · هفته ۳–۴</span><h3>حل مسئله و Git</h3><ul><li>لیست و دیکشنری</li><li>فایل و خطایابی</li><li>اولین مخزن GitHub</li></ul></article>
+        <article class="panel phase"><span class="num">PHASE 03 · هفته ۵–۶</span><h3>داده و وب</h3><ul><li>CSV و نمودار</li><li>HTML و CSS پایه</li><li>صفحه معرفی شخصی</li></ul></article>
+        <article class="panel phase"><span class="num">PHASE 04 · هفته ۷–۸</span><h3>شبکه و امنیت</h3><ul><li>مبانی لینوکس و شبکه</li><li>امنیت وب در آزمایشگاه مجاز</li><li>یادداشت فنی</li></ul></article>
+        <article class="panel phase"><span class="num">PHASE 05 · هفته ۹–۱۰</span><h3>هوش مصنوعی پایه</h3><ul><li>داده و ویژگی‌ها</li><li>مدل ساده با scikit-learn</li><li>ارزیابی نتیجه</li></ul></article>
+        <article class="panel phase"><span class="num">PHASE 06 · هفته ۱۱–۱۲</span><h3>پروژه و پژوهش</h3><ul><li>تکمیل نمونه اولیه</li><li>مستندسازی و README</li><li>بررسی موضوع پژوهشی</li></ul></article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="weekly">
+      <div class="section-head">
+        <div><div class="kicker">WEEKLY LOOP</div><h2>تقویم هفتگی</h2><p>این چرخه را تکرار کن؛ جمعه روز مرور و جبران است.</p></div>
+      </div>
+      <div class="week-grid">
+        <div class="day"><strong>شنبه</strong><span>یادگیری مفهوم جدید</span><small>پایتون + یک درس دانشگاه</small></div>
+        <div class="day"><strong>یکشنبه</strong><span>حل تمرین</span><small>کدنویسی مستقل + انگلیسی فنی</small></div>
+        <div class="day"><strong>دوشنبه</strong><span>ساخت پروژه</span><small>یک قابلیت کوچک و قابل‌آزمایش</small></div>
+        <div class="day"><strong>سه‌شنبه</strong><span>حل مسئله</span><small>ساختمان داده و الگوریتم</small></div>
+        <div class="day"><strong>چهارشنبه</strong><span>مهارت مکمل</span><small>وب، امنیت یا داده</small></div>
+        <div class="day"><strong>پنجشنبه</strong><span>GitHub و مستندسازی</span><small>ثبت تغییرات و نوشتن README</small></div>
+        <div class="day"><strong>جمعه</strong><span>مرور هفتگی</span><small>خودآزمایی، جبران یا استراحت</small></div>
+        <div class="day"><strong>هر روز</strong><span>یادداشت کوتاه</span><small>امروز چه چیزی را واقعاً فهمیدم؟</small></div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="projects">
+      <div class="section-head">
+        <div><div class="kicker">BUILD IN PUBLIC</div><h2>پروژه‌های واقعی برای رزومه</h2><p>هر پروژه باید اجرا شود، مستند باشد و بتوانی کدش را توضیح بدهی.</p></div>
+      </div>
+      <div class="project-list">
+        <article class="panel project"><div class="project-icon">📊</div><div><h3>۱. Student Toolkit</h3><p>مدیریت نمره، محاسبه معدل، ذخیره اطلاعات و گزارش ساده با پایتون.</p><div class="meta">ماه ۱–۲ · مقدماتی</div></div></article>
+        <article class="panel project"><div class="project-icon">🌐</div><div><h3>۲. وب‌سایت نمونه‌کار</h3><p>صفحه شخصی، مهارت‌ها، پروژه‌ها و لینک مخازن؛ با HTML و CSS شروع کن.</p><div class="meta">ماه ۲–۳ · وب</div></div></article>
+        <article class="panel project"><div class="project-icon">🛡️</div><div><h3>۳. تحلیل‌گر داده شبکه</h3><p>تحلیل دیتاست عمومی و ساخت مدل پایه برای تشخیص ناهنجاری، با گزارش خطاها.</p><div class="meta">ماه ۴–۶ · امنیت + داده</div></div></article>
+        <article class="panel project"><div class="project-icon">⚙️</div><div><h3>۴. ابزار اتوماسیون</h3><p>مرتب‌سازی فایل‌ها یا تولید گزارش خودکار از CSV برای حل یک نیاز واقعی.</p><div class="meta">ماه ۵ به بعد · کاربردی</div></div></article>
+      </div>
+    </section>
+
+    <section class="section wrap" id="tools">
+      <div class="section-head">
+        <div><div class="kicker">AI TOOLKIT</div><h2>جعبه‌ابزار پیشنهادی</h2><p>از ابزارهای رایگان یا دارای سطح رایگان شروع کن؛ لازم نیست همه را نصب کنی.</p></div>
+      </div>
+      <div class="tools">
+        <div class="tool"><span class="tool-emoji">🤖</span><div><strong>ChatGPT</strong><p>معلم خصوصی، توضیح کد و تمرین‌سازی.</p><a href="https://chatgpt.com/" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">☁️</span><div><strong>Google Colab</strong><p>اجرای پایتون در مرورگر، بدون نصب سنگین.</p><a href="https://colab.research.google.com/" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">📚</span><div><strong>NotebookLM</strong><p>کار با جزوه‌ها، خلاصه‌سازی و ساخت پرسش.</p><a href="https://notebooklm.google.com/" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">🧠</span><div><strong>Google Scholar</strong><p>جست‌وجوی مقاله و منابع پژوهشی.</p><a href="https://scholar.google.com/" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">🐙</span><div><strong>GitHub Skills</strong><p>یادگیری مخزن، commit و گردش کار GitHub.</p><a href="https://github.com/skills" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">🔐</span><div><strong>PortSwigger Academy</strong><p>تمرین امنیت وب در محیط آموزشی و مجاز.</p><a href="https://portswigger.net/web-security" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">📘</span><div><strong>MDN Web Docs</strong><p>یادگیری استانداردهای HTML، CSS و JavaScript.</p><a href="https://developer.mozilla.org/en-US/docs/Learn" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+        <div class="tool"><span class="tool-emoji">📈</span><div><strong>scikit-learn</strong><p>شروع یادگیری ماشین کلاسیک با پایتون.</p><a href="https://scikit-learn.org/stable/getting_started.html" target="_blank" rel="noopener">باز کردن ↗</a></div></div>
+      </div>
+    </section>
+
+    <section class="section wrap" id="progress">
+      <div class="section-head">
+        <div><div class="kicker">TRACK YOURSELF</div><h2>چک‌لیست هفتگی من</h2><p>تیک بزن؛ پیشرفت در همین مرورگر ذخیره می‌شود.</p></div>
+        <button class="btn" id="reset">بازنشانی</button>
+      </div>
+      <div class="checklist" id="checklist">
+        <label class="check"><input type="checkbox" data-id="1"><span>حداقل ۴ جلسه تمرین یا مطالعه انجام دادم.</span></label>
+        <label class="check"><input type="checkbox" data-id="2"><span>سه تمرین را بدون کپی مستقیم حل کردم.</span></label>
+        <label class="check"><input type="checkbox" data-id="3"><span>یک قابلیت کوچک به پروژه اضافه کردم.</span></label>
+        <label class="check"><input type="checkbox" data-id="4"><span>کد و تغییرات مهم را در GitHub ثبت کردم.</span></label>
+        <label class="check"><input type="checkbox" data-id="5"><span>یک مفهوم را با زبان خودم توضیح دادم.</span></label>
+        <label class="check"><input type="checkbox" data-id="6"><span>واژه‌های انگلیسی فنی را مرور کردم.</span></label>
+        <label class="check"><input type="checkbox" data-id="7"><span>درس‌های دانشگاه و برنامه هفته بعد را بررسی کردم.</span></label>
+        <label class="check"><input type="checkbox" data-id="8"><span>کد یا پروژه را اجرا و نتیجه‌اش را بررسی کردم.</span></label>
+      </div>
+      <div class="panel" style="margin-top:14px">
+        <div style="display:flex;justify-content:space-between;gap:10px;align-items:center;margin-bottom:10px">
+          <strong>درصد انجام برنامه</strong><strong id="percentText" style="color:var(--cyan)">۰٪</strong>
+        </div>
+        <div class="progress"><span id="progressBar"></span></div>
+        <p style="margin-top:10px">این عدد فقط میزان انجام چک‌لیست را نشان می‌دهد؛ برای سنجش تسلط، هر ماه یک پروژه را بدون راهنمایی قدم‌به‌قدم اجرا و توضیح بده.</p>
+      </div>
+    </section>
+
+    <section class="section wrap">
+      <div class="callout">
+        <strong>قانون طلایی</strong>
+        <p style="margin:5px 0 0;color:var(--muted);font-size:13px">هوش مصنوعی باید یادگیری تو را سریع‌تر کند، نه اینکه به‌جای تو فکر کند. کد را بفهم، اجرا کن، خطاها را بررسی کن و فقط چیزی را در رزومه بگذار که بتوانی توضیح بدهی. هنگام نزدیک‌شدن امتحان‌ها، اولویت را به درس‌های دانشگاه بده.</p>
+      </div>
+    </section>
+  </main>
+  <footer class="footer"><div class="wrap">NPLIT · COMPUTER ENGINEERING ROADMAP · ساخته‌شده برای رشد پیوسته</div></footer>
+  <button class="btn primary floating" id="topBtn" aria-label="بازگشت به بالا">↑ بالا</button>
+</div>
+<script>
+(function () {
+  const boxes = Array.from(document.querySelectorAll('#checklist input[type="checkbox"]'));
+  const storageKey = 'nplit-roadmap-weekly-progress-v1';
+  function loadState() {
+    try {
+      const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+      boxes.forEach(box => { box.checked = Boolean(saved[box.dataset.id]); });
+    } catch (_) {}
+    updateProgress();
+  }
+  function updateProgress() {
+    const checked = boxes.filter(box => box.checked).length;
+    const percent = Math.round(checked / boxes.length * 100);
+    document.getElementById('percentText').textContent = percent.toLocaleString('fa-IR') + '٪';
+    document.getElementById('heroPercent').textContent = percent.toLocaleString('fa-IR');
+    document.getElementById('progressBar').style.width = percent + '%';
+    document.getElementById('heroBar').style.width = percent + '%';
+    boxes.forEach(box => box.closest('.check').classList.toggle('done', box.checked));
+    try {
+      const saved = {};
+      boxes.forEach(box => saved[box.dataset.id] = box.checked);
+      localStorage.setItem(storageKey, JSON.stringify(saved));
+    } catch (_) {}
+  }
+  boxes.forEach(box => box.addEventListener('change', updateProgress));
+  document.getElementById('reset').addEventListener('click', function () {
+    if (confirm('چک‌لیست این هفته پاک شود؟')) {
+      boxes.forEach(box => box.checked = false);
+      updateProgress();
+    }
+  });
+  document.getElementById('topBtn').addEventListener('click', () => window.scrollTo({top:0,behavior:'smooth'}));
+  loadState();
+})();
+</script>
+</body>
+</html>
